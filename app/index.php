@@ -1,0 +1,3 @@
+<?php
+// Application source code will be added here.
+?>
