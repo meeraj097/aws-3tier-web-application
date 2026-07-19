@@ -1,11 +1,27 @@
 #!/bin/bash
 
-# User Data script
-# This script installs and configures:
-# - Nginx
-# - PHP
-# - MariaDB Client
-# - PHP-MySQL
-# - Deploys the PHP application
+# Update packages
+dnf update -y
 
-echo "User Data Placeholder"
+# Install Nginx
+dnf install nginx -y
+
+# Install PHP and MySQL client
+dnf install php php-mysqlnd mariadb105 -y
+
+# Start and enable Nginx
+systemctl enable nginx
+systemctl start nginx
+
+# Start and enable PHP-FPM
+systemctl enable php-fpm
+systemctl start php-fpm
+
+# Create application directory
+mkdir -p /usr/share/nginx/html
+
+# Set permissions
+chown -R nginx:nginx /usr/share/nginx/html
+chmod -R 755 /usr/share/nginx/html
+
+echo "Server bootstrap completed successfully."
